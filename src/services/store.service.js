@@ -6,6 +6,7 @@ export const joinStore = async (body) => {
         'name': body.name,
         'addr': body.addr,
         'spec_addr': body.spec_addr,
+        'score' : body.score
     });
    
     return addStoreResponseDTO(await getStore(joinStoreData));
