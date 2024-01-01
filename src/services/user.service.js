@@ -1,7 +1,7 @@
 import { BaseError } from "../../config/error.js";
 import { status } from "../../config/response.status.js";
-import { signinResponseDTO } from "../dtos/user.response.dto.js";
-import { addUser, getUser, getUserPreferToUserID, setPrefer } from "../models/user.dao.js";
+import { signinResponseDTO, reviewResponseDTO, missionResponseDTO } from "../dtos/user.response.dto.js";
+import { addUser, getUser, getUserPreferToUserID, setPrefer, addReview, getReview, addMission, getMission } from "../models/user.dao.js";
 
 export const joinUser = async (body) => {
     const birth = new Date(body.birthYear, body.birthMonth, body.birthDay);
@@ -25,5 +25,35 @@ export const joinUser = async (body) => {
             await setPrefer(joinUserData, prefer[i]);
         }
         return signinResponseDTO(await getUser(joinUserData), await getUserPreferToUserID(joinUserData));
+    }
+}
+
+export const reviewUser = async(body) => {
+    const joinReviewData = await addReview ({
+        'user_id' : body.user_id,
+        'store_id' : body.store_id,
+        'score' : body.score,
+        'content' : body.content,
+        'image_url' : body.image_url
+    });
+    console.log(joinReviewData);
+    if(joinReviewData == -1){
+        throw new BaseError(status.STORE_NOT_EXIST);
+    }else{
+        return reviewResponseDTO(await getReview(joinReviewData));
+    }
+}
+
+export const missionUser = async(body) => {
+    const joinMissionData = await addMission ({
+        'user_id' : body.user_id,
+        'mission_id' : body.mission_id,
+        'status' : body.status
+    });
+    console.log(joinMissionData);
+    if(joinMissionData == -1){
+        throw new BaseError(status.STORE_NOT_EXIST);
+    }else{
+        return missionResponseDTO(await getMission(joinMissionData));
     }
 }

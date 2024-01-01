@@ -2,8 +2,10 @@
 import express from "express";
 import asyncHandler from 'express-async-handler';
 
-import { userSignin } from "../controllers/user.controller.js";
+import { userSignin, userReview, userMission } from "../controllers/user.controller.js";
 
 export const userRouter = express.Router();
 
 userRouter.post('/signin', asyncHandler(userSignin));
+userRouter.post('/review', asyncHandler(userReview));
+userRouter.post('/mission', asyncHandler(userMission));
