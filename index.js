@@ -25,12 +25,8 @@ app.use((err, req, res, next) => {
     res.locals.error = process.env.NODE_ENV !== 'production' ? err : {}; 
 
     // (따로 추가) err.data가 존재하는지 확인하고, 없다면 기본 값을 설정
-    const status = err.data && err.data.status ? err.data.status : 500;
-
-    // 오류 데이터를 클라이언트에게 보내기
-    res.status(status).send(err.data);
-    console.log('err.data: '+err.data);
-    res.status(err.data.status).send(response(err.data));
+    console.log("error", err);
+    res.status(err.data.status || status.INTERNAL_SERVER_ERROR).send(response(err.data));
 });
 
 app.listen(port, () => {
