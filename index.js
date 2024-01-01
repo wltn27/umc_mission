@@ -29,8 +29,8 @@ app.use((err, req, res, next) => {
 
     // 오류 데이터를 클라이언트에게 보내기
     res.status(status).send(err.data);
-    // console.log('err.data: '+err.data);
-    // res.status(err.data.status).send(response(err.data));
+    console.log('err.data: '+err.data);
+    res.status(err.data.status).send(response(err.data));
 });
 
 app.listen(port, () => {
