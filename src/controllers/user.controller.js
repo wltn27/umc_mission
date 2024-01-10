@@ -12,10 +12,10 @@ export const userSignin = async (req, res, next) => {
 
 export const userReview = async (req, res, next) => {
     const review = req.body;
-    console.log("리뷰를 작성합니다.");
-    console.log("body:", review); // 값이 잘 들어오는지 테스트
+    const userId = req.params;
+    console.log("body: ", review, "userId: ", userId); // 값이 잘 들어오는지 테스트
 
-    res.send(response(status.SUCCESS, await reviewUser(req.body)));
+    res.send(response(status.SUCCESS, await reviewUser(req.body, userId)));
 }
 
 export const userMission = async (req, res, next) => {

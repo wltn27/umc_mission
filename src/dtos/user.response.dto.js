@@ -11,7 +11,7 @@ export const signinResponseDTO = (user, prefer) => {
 
 export const reviewResponseDTO = (review) => {
     console.log("reviewResponseDTO clear");
-    return {"score": review[0].score, "content": review[0].content, "review_image_path": review[0].review_image_path};
+    return {"score": review[0].score, "body": review[0].body};
 }
 
 export const missionResponseDTO = (mission) => {

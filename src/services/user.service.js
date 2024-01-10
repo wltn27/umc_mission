@@ -29,12 +29,12 @@ export const joinUser = async (body) => {
 }
 
 export const reviewUser = async(body) => {
+    console.log("reviewUser function - Received body:", body);
     const joinReviewData = await addReview ({
         'user_id' : body.user_id,
         'store_id' : body.store_id,
         'score' : body.score,
-        'content' : body.content,
-        'image_url' : body.image_url
+        'body' : body.body
     });
     console.log(joinReviewData);
     if(joinReviewData == -1){

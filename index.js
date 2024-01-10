@@ -29,8 +29,9 @@ app.use('/api-docs', SwaggerUi.serve, SwaggerUi.setup(specs));
 
 // router setting
 app.use('/temp', tempRouter);
-app.use('/user', userRouter);
+app.use('/user/:userId', userRouter);
 app.use('/store', storeRouter);
+app.use('/store/:storeId', storeRouter);
 
 // 잡지 못한 오류들을 받아 다음 에러 핸들러에게 넘기는 코드 추가
 // app.use((req, res, next) => {

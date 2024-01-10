@@ -13,14 +13,13 @@ export const joinStore = async (body) => {
 }
 
 export const joinMission = async (body) => {
-
     const deadline = new Date(body.deadlineYear, body.deadlineMonth, body.deadlineDay);
     console.log(deadline);
     const joinStoreData = await addMission({
         'store_id' : body.store_id,
-        'reward': body.reward,
+        'score': body.score,
         'deadline': deadline,
-        'content': body.content,
+        'body': body.body,
     });
    
     return addMissionResponseDTO(await getMission(joinStoreData));

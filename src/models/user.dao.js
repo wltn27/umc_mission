@@ -78,8 +78,9 @@ export const getUserPreferToUserID = async (userID) => {
 }
 
 // User review 데이터 삽입
-export const addReview = async (data) => {
+export const addReview = async (data, userId) => {
     try{
+        console.log("addReview function - Received data:", data);
         const conn = await pool.getConnection();
         
         const [confirm] = await pool.query(confirmStore, data.store_id); // 가게 확인
@@ -89,7 +90,7 @@ export const addReview = async (data) => {
             return -1;
         }
 
-        const result = await pool.query(insertReviewSql, [data.user_id, data.store_id, data.score, data.content, data.review_image_path]);
+        const result = await pool.query(insertReviewSql, [data.user_id, data.store_id, data.score, data.body]);
         console.log(10);
         conn.release();
         return result[0].insertId;

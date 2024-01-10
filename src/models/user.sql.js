@@ -15,7 +15,7 @@ export const getPreferToUserID =
 
 // review
 export const confirmStore = "SELECT EXISTS(SELECT 1 FROM store WHERE id = ?) as isExistStore";
-export const insertReviewSql = "INSERT INTO review (user_id, store_id, score, content, review_image_path) VALUES (?, ?, ?, ?, ?);";
+export const insertReviewSql = "INSERT INTO review (user_id, store_id, score, body) VALUES (?, ?, ?, ?);";
 export const getReviewID = "SELECT * FROM review WHERE id = ?";
 
 // mission

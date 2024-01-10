@@ -2,6 +2,7 @@ import { response } from "../../config/response.js";
 import { status } from "../../config/response.status.js";
 
 import { joinStore, joinMission } from "../services/store.service.js";
+import { getReview } from "../providers/store.provider.js";
 
 export const storeAdd = async (req, res, next) => {
     const store_add = req.body;
@@ -17,4 +18,8 @@ export const missionAdd = async (req, res, next) => {
     console.log("body:", mission_add); // 값이 잘 들어오는지 테스트
 
     res.send(response(status.SUCCESS, await joinMission(mission_add)));
+}
+
+export const reviewPreview = async (req, res, next) => {
+    return res.send(response(status.SUCCESS, await getReview(req.params.storeId, req.query)));
 }
