@@ -20,3 +20,16 @@ export const getReviewByReviewIdAtFirst =
 + "FROM review r JOIN user u on r.user_id = u.id "
 + "WHERE r.store_id = ? "
 + "ORDER BY r.id DESC LIMIT ? ;"
+
+// 특정 가게의 미션 목록 조회
+export const getMissionByMissionId = 
+"SELECT st.name, m.id, m.reward, m.deadline, m.mission_spec, m.created_at "
++ "FROM mission m JOIN store st on m.store_id = st.id "
++ "WHERE m.store_id = ? AND m.id < ? "
++ "ORDER BY m.id DESC LIMIT ? ;"
+
+export const getMissionByMissionIdAtFirst = 
+"SELECT st.name, m.id, m.reward, m.deadline, m.mission_spec, m.created_at "
++ "FROM mission m JOIN store st on m.store_id = st.id "
++ "WHERE m.store_id = ? "
++ "ORDER BY m.id DESC LIMIT ? ;"

@@ -17,7 +17,7 @@ export const previewReviewResponseDTO = (data) => {
            "user_name": data[i].name,
            "rate": data[i].score,
             "review_body": data[i].body,
-            "create_date": formatDate(data[i].created_at)
+            "create_at": formatDate(data[i].created_at)
         })
     }
     return {"reviewData": reviews, "cursorId": data[data.length-1].id};
@@ -25,4 +25,20 @@ export const previewReviewResponseDTO = (data) => {
 
 const formatDate = (date) => {
     return new Intl.DateTimeFormat('kr').format(new Date(date)).replaceAll(" ", "").slice(0, -1);
+}
+
+// 특정 가게의 미션 목록 조회
+export const previewMissionResponseDTO = (data) => {
+
+    const missions = [];
+
+    for (let i = 0; i < data.length; i++) {
+        missions.push({
+           "reward": data[i].reward,
+           "deadline": data[i].deadline,
+            "mission_spec": data[i].mission_spec,
+            "create_at": formatDate(data[i].created_at)
+        })
+    }
+    return {"MissionData": missions, "cursorId": data[data.length-1].id};
 }

@@ -3,7 +3,7 @@
 import { pool } from "../../config/db.config.js";
 import { BaseError } from "../../config/error.js";
 import { status } from "../../config/response.status.js";
-import { getStoreID, insertStoreSql, getMissionID, insertMissionSql, getReviewByReviewId, getReviewByReviewIdAtFirst } from "./store.sql.js";
+import { getStoreID, insertStoreSql, getMissionID, insertMissionSql, getReviewByReviewId, getReviewByReviewIdAtFirst, getMissionByMissionIdAtFirst, getMissionByMissionId } from "./store.sql.js";
 
 // Store 데이터 삽입
 export const addStore = async (data) => {
@@ -70,15 +70,15 @@ export const getMission = async (missionId) => {
 }
 
 // 가게 리뷰 목록 조회
-export const getPreviewReview = async (cursorId, size, storeId) => {
+export const getPreviewReview = async (cursorId, size, userId) => {
     try {
         const conn = await pool.getConnection();
         if(cursorId == "undefined" || typeof cursorId == "undefined" || cursorId == null){
-            const [reviews] = await pool.query(getReviewByReviewIdAtFirst, [parseInt(storeId), parseInt(size)]);
+            const [reviews] = await pool.query(getReviewByReviewIdAtFirst, [parseInt(userId), parseInt(size)]);
             conn.release();
             return reviews;
         } else{
-            const [reviews] = await pool.query(getReviewByReviewId, [parseInt(storeId), parseInt(cursorId), parseInt(size)]);
+            const [reviews] = await pool.query(getReviewByReviewId, [parseInt(userId), parseInt(cursorId), parseInt(size)]);
             conn.release();
             return reviews;
         }
@@ -86,4 +86,22 @@ export const getPreviewReview = async (cursorId, size, storeId) => {
     } catch (err) {
         throw new BaseError(status.PARAMETER_IS_WRONG);
     }
+}
+
+// 특정 가게의 미션 목록 조회
+export const getPreviewMission = async (cursorId, size, storeId) => {
+    //try {
+        const conn = await pool.getConnection();
+        if(cursorId == "undefined" || typeof cursorId == "undefined" || cursorId == null){
+            const [missions] = await pool.query(getMissionByMissionIdAtFirst, [parseInt(storeId), parseInt(size)]);
+            conn.release();
+            return reviews;
+        }else{
+            const [missions] = await pool.query(getMissionByMissionId, [parseInt(storeId), parseInt(cursorId), parseInt(size)]);
+            conn.release();
+            return missions;
+        }
+    //} catch (err) {
+    //    throw new BaseError(status.PARAMETER_IS_WRONG);
+   // }
 }

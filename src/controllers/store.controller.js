@@ -2,7 +2,7 @@ import { response } from "../../config/response.js";
 import { status } from "../../config/response.status.js";
 
 import { joinStore, joinMission } from "../services/store.service.js";
-import { getReview } from "../providers/store.provider.js";
+import { getReview, getMission } from "../providers/store.provider.js";
 
 export const storeAdd = async (req, res, next) => {
     const store_add = req.body;
@@ -21,5 +21,10 @@ export const missionAdd = async (req, res, next) => {
 }
 
 export const reviewPreview = async (req, res, next) => {
-    return res.send(response(status.SUCCESS, await getReview(req.params.storeId, req.query)));
+    return res.send(response(status.SUCCESS, await getReview(req.params.userId, req.query)));
+}
+
+// 특정 가게의 미션 목록 조회
+export const missionPreview = async (req, res, next) => {
+    return res.send(response(status.SUCCESS, await getMission(req.params.storeId, req.query)));
 }
